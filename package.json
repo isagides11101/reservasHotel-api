@@ -1,0 +1,29 @@
+{
+  "name": "reservashotel-api",
+  "version": "1.0.0",
+  "description": "Proyecto para la gestion de Rservas de un Hotel",
+  "main": "app.js",
+  "scripts": {
+  "start": "node src/server.js",
+  "dev": "node --watch src/server.js",
+  "semilla": "node database/semilla.js"
+},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/isagides11101/reservasHotel-api.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/isagides11101/reservasHotel-api/issues"
+  },
+  "homepage": "https://github.com/isagides11101/reservasHotel-api#readme",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^18.0.10",
+    "express": "^5.3.0",
+    "helmet": "^8.3.0"
+  }
+}
