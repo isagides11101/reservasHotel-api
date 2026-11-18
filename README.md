@@ -1,5 +1,10 @@
 ## Proyecto final programacion aplicada 
-Proyecto para la gestion de Reservas de un Hotel 
+Proyecto para la gestion de Reservas de un Hotel
+
+## Caso 
+API rest que permite la gestionar las reservas de un hotel; Registrar huespedes , 
+gestionar Habitaciones por su tipo y estado  (libre, ocupada, limpieza), y reservaciones de varias Habitaciones
+los usuarios del sistema (administrador y operador) pueden ingresar por medio de validaciones y permisos segun su rol.
 
 ## Integrantes
 * Yoseth Alejandro Membreño Hernandez - 20241002654

@@ -1,6 +1,5 @@
 CREATE DATABASE IF NOT EXISTS hotel_db;
 USE hotel_db;
-
 SET NAMES utf8mb4;
 
 DROP TABLE IF EXISTS reservacion_detalle;
