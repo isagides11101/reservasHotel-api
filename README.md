@@ -12,10 +12,12 @@ los usuarios del sistema (administrador y operador) pueden ingresar por medio de
 * Kent Said Wood Lerians - 20223030041 
 
 ## Tecnologias
-NODE.js, express , mysql
+NODE.js, express 5 , mysql2
 
 ## Reglas de Negocio 
-* 
-*
-*
-*
+## Reglas de negocio
+* La fecha de salida debe ser posterior a la de entrada.
+* Una habitación no puede tener dos reservaciones activas con fechas que se cruzan.
+* El total de la reservación es la suma de los subtotales (noches × precio por noche) de su detalle.
+* Solo el rol admin puede gestionar usuarios, tipos de habitación y reportes.
+* Una reservación cancelada o finalizada libera la habitación.
