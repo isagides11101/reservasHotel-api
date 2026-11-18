@@ -14,7 +14,6 @@ los usuarios del sistema (administrador y operador) pueden ingresar por medio de
 ## Tecnologias
 NODE.js, express 5 , mysql2
 
-## Reglas de Negocio 
 ## Reglas de negocio
 * La fecha de salida debe ser posterior a la de entrada.
 * Una habitación no puede tener dos reservaciones activas con fechas que se cruzan.
