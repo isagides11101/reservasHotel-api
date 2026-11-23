@@ -17,7 +17,17 @@ app.get('/api/salud', async (req, res) => {
   res.json(filas[0]);
 });
 
+app.get('api/usuarios' , async (req, res) => {
+  const [usuarios] = await pool.query();
+});
 
+app.get('/api/habitaciones', async (req, res) =>{
+    const [habitaciones] = await pool.query("SELECT * FROm habitaciones");
+    res.json(habitaciones);
+});
+
+app.use('/api/tipos-habitacion', require('./rutas/tipos-habitacion.rutas'));
+app.use('/api/habitaciones', require('./rutas/habitaciones.rutas'));
 
 app.use(noEncontrado);
 app.use(manejadorErrores);
