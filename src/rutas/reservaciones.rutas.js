@@ -8,3 +8,5 @@ router.get('/:id', v.id, validar, c.obtener);
 router.post('/', v.cuerpo, validar, c.crear);
 router.patch('/:id/cancelar', v.id, validar, c.cancelar);
 router.patch('/:id/finalizar', v.id, validar, c.finalizar);
+
+module.exports = router;
