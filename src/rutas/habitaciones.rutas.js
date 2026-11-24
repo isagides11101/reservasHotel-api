@@ -1,7 +1,7 @@
 const router = require('express').Router();
-const v = require('../validaciones/tipos-habitacion.validaciones');
+const v = require('../validaciones/habitaciones.validaciones');
 const validar = require('../middlewares/validar');
-const c = require('../controladores/tipos-habitacion.controlador');
+const c = require('../controladores/habitaciones.controlador');
 
 router.get('/', v.listar, validar, c.listar);
 router.get('/:id', v.id, validar, c.obtener);

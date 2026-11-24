@@ -1,0 +1,1 @@
+module.exports = {id:[], cuerpo: [], listar: [], estado: [] };

@@ -2,7 +2,6 @@ const pool = require('../db');
 const { ErrorApp } = require('../middlewares/errores');
 const { paginar, respuesta } = require('../utils/paginacion');
 
-// Consulta base: la habitación con los datos de su tipo
 const SELECT = `
   SELECT h.id, h.numero, h.piso, h.estado, h.tipo_habitacion_id,
          t.nombre AS tipo, t.capacidad, t.precio_noche
@@ -11,7 +10,7 @@ const SELECT = `
 
 async function buscar(id) {
   const [filas] = await pool.query(`${SELECT} WHERE h.id = ?`, [id]);
-  return filas[0]; // undefined si no existe
+  return filas[0]; 
 }
 
 async function listar(req, res) {
@@ -45,8 +44,6 @@ async function obtener(req, res) {
 
 async function crear(req, res) {
   const { numero, tipo_habitacion_id, piso, estado = 'libre' } = req.body;
-  // Si el número ya existe, MySQL lanza ER_DUP_ENTRY y el manejador responde 409.
-  // Si el tipo no existe, lanza ER_NO_REFERENCED_ROW_2 y responde 400.
   const [r] = await pool.query(
     'INSERT INTO habitaciones (numero, tipo_habitacion_id, piso, estado) VALUES (?, ?, ?, ?)',
     [numero, tipo_habitacion_id, piso, estado]);
@@ -74,8 +71,6 @@ async function cambiarEstado(req, res) {
 }
 
 async function eliminar(req, res) {
-  // Si la habitación aparece en alguna reservación, MySQL lanza
-  // ER_ROW_IS_REFERENCED_2 y el manejador responde 409.
   const [r] = await pool.query('DELETE FROM habitaciones WHERE id = ?', [req.params.id]);
   if (r.affectedRows === 0) throw new ErrorApp(404, 'NO_ENCONTRADO', 'Habitación no encontrada');
   res.status(204).end();

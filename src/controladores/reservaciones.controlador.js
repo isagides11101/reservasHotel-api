@@ -63,13 +63,11 @@ async function crear(req, res) {
     'SELECT id FROM usuarios WHERE id = ? AND activo = 1', [usuario_id]);
   if (usuario.length === 0) throw new ErrorApp(404, 'NO_ENCONTRADO', 'Usuario no encontrado');
 
-  // Transacción: todo se guarda o nada se guarda
+ 
   const conn = await pool.getConnection();
   try {
     await conn.beginTransaction();
 
-    // Bloquea las habitaciones pedidas para que otra petición simultánea
-    // no las reserve al mismo tiempo, y trae el precio de cada una
     const [habs] = await conn.query(
       `SELECT h.id, t.precio_noche
        FROM habitaciones h
@@ -80,7 +78,6 @@ async function crear(req, res) {
       throw new ErrorApp(404, 'NO_ENCONTRADO', 'Alguna habitación no existe');
     }
 
-    // Regla de negocio: no se reserva una habitación con fechas que se cruzan
     const [ocupadas] = await conn.query(
       `SELECT DISTINCT d.habitacion_id
        FROM reservacion_detalle d
@@ -113,13 +110,12 @@ async function crear(req, res) {
     res.status(201).json(await obtenerCompleta(r.insertId));
   } catch (err) {
     await conn.rollback();
-    throw err; // el manejador central responde con el formato único
+    throw err;
   } finally {
-    conn.release(); // siempre devuelve la conexión al pool
+    conn.release(); 
   }
 }
 
-// Cancelar y finalizar comparten lógica: solo una reservación activa cambia de estado
 async function cambiarEstado(req, res, nuevoEstado, accion) {
   const [r] = await pool.query(
     "UPDATE reservaciones SET estado = ? WHERE id = ? AND estado = 'activa'",
@@ -136,7 +132,6 @@ async function cambiarEstado(req, res, nuevoEstado, accion) {
 const cancelar = (req, res) => cambiarEstado(req, res, 'cancelada', 'cancelar');
 const finalizar = (req, res) => cambiarEstado(req, res, 'finalizada', 'finalizar');
 
-// Opcional: solo si el docente exige un DELETE real. El detalle se borra solo (ON DELETE CASCADE)
 async function eliminar(req, res) {
   const [r] = await pool.query('DELETE FROM reservaciones WHERE id = ?', [req.params.id]);
   if (r.affectedRows === 0) throw new ErrorApp(404, 'NO_ENCONTRADO', 'Reservación no encontrada');

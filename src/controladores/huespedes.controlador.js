@@ -34,7 +34,6 @@ async function obtener(req, res) {
 
 async function crear(req, res) {
   const { nombre, apellido, dni, telefono = null, correo = null } = req.body;
-  // DNI repetido: ER_DUP_ENTRY, el manejador responde 409
   const [r] = await pool.query(
     'INSERT INTO huespedes (nombre, apellido, dni, telefono, correo) VALUES (?, ?, ?, ?, ?)',
     [nombre, apellido, dni, telefono, correo]);
